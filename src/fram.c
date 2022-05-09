@@ -16,19 +16,18 @@
 int8_t fram_init(spibus *dev)
 {
     // Device initialization.
-    spibus device[1] = {0};
-    device->bits = 8;
-    device->bus = 0;
-    device->cs = 0;
-    device->cs_gpio = -1;
-    device->cs_internal = 1;
-    device->internal_rotation = false;
-    device->lsb = 0;
-    device->mode = SPI_MODE_0;
-    device->speed = 4000000;
-    device->sleeplen = 0;
+    dev->bits = 8;
+    dev->bus = 0;
+    dev->cs = 0;
+    dev->cs_gpio = -1;
+    dev->cs_internal = 1;
+    dev->internal_rotation = false;
+    dev->lsb = 0;
+    dev->mode = SPI_MODE_0;
+    dev->speed = 4000000;
+    dev->sleeplen = 0;
 
-    if (spibus_init(device) < 0)
+    if (spibus_init(dev) < 0)
     {
         dbprintlf(FATAL "Error initializing.");
         return -1;
