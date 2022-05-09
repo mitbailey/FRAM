@@ -34,6 +34,11 @@ int main()
     else
     {
         bprintlf("Device ID: 0x%08X 0x%08X 0x%08X 0x%08X", buf[0], buf[1], buf[2], buf[3]);
+
+        if (buf[0] != 0b00000100)
+        {
+            bprintlf(RED_FG "Failed to retrieve the expected manufacturer ID.");
+        }
     }
 
     // Device read status test.
