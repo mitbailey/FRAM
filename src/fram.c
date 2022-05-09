@@ -24,7 +24,7 @@ int8_t fram_init(spibus *dev)
     dev->internal_rotation = false;
     dev->lsb = 0;
     dev->mode = SPI_MODE_0;
-    dev->speed = 4000000;
+    dev->speed = 1000000;
     dev->sleeplen = 0;
 
     int retval = spibus_init(dev);
@@ -88,7 +88,7 @@ int8_t fram_read_id(spibus *dev, uint32_t *id)
         bprintlf(RED_FG "Failed to perform SPI bus transfer to obtain FRAM ID (%d).", retval);
         return -1;
     }
-    id = (uint32_t *) buf[1];
+    *id = *((uint32_t *) buf[1]);
 
     return 0;
 }
