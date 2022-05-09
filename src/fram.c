@@ -169,7 +169,7 @@ int fujitsu_fram_read(fujitsu_fram *dev, uint16_t address, uint8_t *buf, ssize_t
         obuf[(addr_24 ? 3 : 2) + 1 - i] =  address >> ((i - 1) * 8);
     }
     memcpy(obuf + (addr_24 ? 4 : 3), buf, len);
-    int ret = spibus_xfer_full(dev->bus, ibuf, obuf, + (addr_24 ? 4 : 3));
+    int ret = spibus_xfer_full(dev->bus, ibuf, obuf, len + (addr_24 ? 4 : 3));
     free(obuf);
     memcpy(buf, ibuf + (addr_24 ? 4 : 3), len);
     free(ibuf);
