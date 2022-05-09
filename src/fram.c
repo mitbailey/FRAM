@@ -111,7 +111,7 @@ int fujitsu_fram_read_id(fujitsu_fram *dev, uint32_t *id)
 int fujitsu_fram_write(fujitsu_fram *dev, uint16_t address, uint8_t *buf, ssize_t len)
 {
     bool addr_24 = false;
-    if ((dev->id >> 16) & 0xff > 3)
+    if (((dev->id >> 16) & 0xff) > 3)
     {
         addr_24 = true;
     }
@@ -132,10 +132,10 @@ int fujitsu_fram_write(fujitsu_fram *dev, uint16_t address, uint8_t *buf, ssize_
     obuf[0] = FRAM_WRITE;
     for (int i = addr_24 ? 3 : 2; i > 0; i--)
     {
-        obuf[addr_24 ? 3 : 2 + 1 - i] =  address >> ((i - 1) * 8);
+        obuf[(addr_24 ? 3 : 2) + 1 - i] =  address >> ((i - 1) * 8);
     }
-    memcpy(obuf + addr_24 ? 4 : 3, buf, len);
-    int ret = spibus_xfer(dev->bus, obuf, len + addr_24 ? 4 : 3);
+    memcpy(obuf + (addr_24 ? 4 : 3), buf, len);
+    int ret = spibus_xfer(dev->bus, obuf, len + (addr_24 ? 4 : 3));
     free(obuf);
     return ret;
 }
@@ -143,7 +143,7 @@ int fujitsu_fram_write(fujitsu_fram *dev, uint16_t address, uint8_t *buf, ssize_
 int fujitsu_fram_read(fujitsu_fram *dev, uint16_t address, uint8_t *buf, ssize_t len)
 {
     bool addr_24 = false;
-    if ((dev->id >> 16) & 0xff > 3)
+    if (((dev->id >> 16) & 0xff) > 3)
     {
         addr_24 = true;
     }
@@ -166,12 +166,12 @@ int fujitsu_fram_read(fujitsu_fram *dev, uint16_t address, uint8_t *buf, ssize_t
     obuf[0] = FRAM_READ;
     for (int i = addr_24 ? 3 : 2; i > 0; i--)
     {
-        obuf[addr_24 ? 3 : 2 + 1 - i] =  address >> ((i - 1) * 8);
+        obuf[(addr_24 ? 3 : 2) + 1 - i] =  address >> ((i - 1) * 8);
     }
-    memcpy(obuf + addr_24 ? 4 : 3, buf, len);
-    int ret = spibus_xfer_full(dev->bus, ibuf, obuf, + addr_24 ? 4 : 3);
+    memcpy(obuf + (addr_24 ? 4 : 3), buf, len);
+    int ret = spibus_xfer_full(dev->bus, ibuf, obuf, + (addr_24 ? 4 : 3));
     free(obuf);
-    memcpy(buf, ibuf + addr_24 ? 4 : 3, len);
+    memcpy(buf, ibuf + (addr_24 ? 4 : 3), len);
     free(ibuf);
     return ret;
 }
