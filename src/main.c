@@ -23,7 +23,7 @@ int main()
     if (fram_init(dev) < 0)
     {
         dbprintlf(FATAL "Device failed to initialize!");
-        // return -1;
+        return -1;
     }
 
     // Device identification test.
@@ -46,20 +46,6 @@ int main()
     {
         bprintlf("Device status: 0x%08X", dev_status);
     }
-
-    // Device write status test.
-    buf[0] = OPCODE_WRSR;
-    buf[1] = 0x0; // <-- 8-bits of data to write.
-    spibus_xfer(dev, buf, buf_len);
-
-
-
-
-
-
-
-
-
 
     spibus_destroy(dev);
 
