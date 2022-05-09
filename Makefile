@@ -21,4 +21,7 @@ clean:
 .PHONY: spotless
 
 spotless:
+	$(RM) *.out
+	$(RM) *.o
+	$(RM) src/*.o
 	$(RM) spibus/*.o
