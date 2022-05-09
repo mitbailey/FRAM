@@ -149,7 +149,7 @@ int fujitsu_fram_read(fujitsu_fram *dev, uint16_t address, uint8_t *buf, ssize_t
     obuf[2] = (address & 0xff);
     int ret = spibus_xfer_full(dev, ibuf, obuf, len + 3);
     free(obuf);
-    memcpy(ibuf + 3, buf, len);
+    memcpy(buf, ibuf + 3, len);
     free(ibuf);
     return ret;
 }
