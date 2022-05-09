@@ -88,7 +88,7 @@ int8_t fram_read_id(spibus *dev, uint32_t *id)
         bprintlf(RED_FG "Failed to perform SPI bus transfer to obtain FRAM ID (%d).", retval);
         return -1;
     }
-    *id = *((uint32_t *) buf[1]);
+    *id = *((uint32_t *) &buf[1]);
 
     return 0;
 }
