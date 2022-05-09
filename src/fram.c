@@ -41,7 +41,7 @@ int fujitsu_fram_init(fujitsu_fram *dev, uint32_t speed)
     dev->bus->speed = speed;
     dev->bus->sleeplen = 0;
 
-    int retval = spibus_init(dev->bus->bus);
+    int retval = spibus_init(dev->bus);
     if (retval < 0)
     {
         dbprintlf(FATAL "Error initializing (%d).", retval);
