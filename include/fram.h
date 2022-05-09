@@ -152,8 +152,7 @@ uint8_t fram_read(spibus *dev, uint16_t address);
  * @brief Read the FRAM's ID.
  * 
  * @param dev spibus-type device. 
- * @param out_buf The output buffer to store the ID.
- * @param buf_len The length of the buffer; must be 4 bytes.
- * @return int8_t 
+ * @param id The output buffer to store the ID.
+ * @return int8_t Zero on success, negative on failure.
  */
-int8_t fram_read_id(spibus *dev, uint8_t *out_buf, ssize_t buf_len);
+int8_t fram_read_id(spibus *dev, uint32_t *id);

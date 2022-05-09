@@ -39,26 +39,26 @@ int8_t fram_init(spibus *dev)
 int8_t fram_enable_write(spibus *dev)
 {
     uint8_t cmd = OPCODE_WREN;
-    return spibus_xfer(dev, cmd, 1);
+    return spibus_xfer(dev, &cmd, 1);
 }
 
 int8_t fram_disable_write(spibus *dev)
 {
     uint8_t cmd = OPCODE_WRDI;
-    return spibus_xfer(dev, cmd, 1);
+    return spibus_xfer(dev, &cmd, 1);
 }
 
 uint8_t fram_read_status(spibus *dev)
 {
-    uint8_t status = OPCODE_RDSR;
-
-    if (spibus_xfer(dev, &status, 1) < 0)
+    uint8_t buf[2] = {0};
+    buf[0] = OPCODE_RDSR;
+    if (spibus_xfer_full(dev, buf, buf, 2) < 0)
     {
         bprintlf(RED_FG "Failed to perform SPI bus transfer to obtain device status.");
-        return -1;
+        return 0xFF;
     }
 
-    return 0;
+    return buf[1];
 }
 
 int8_t fram_write_status(spibus *dev, uint8_t data)
@@ -76,22 +76,16 @@ int8_t fram_write_status(spibus *dev, uint8_t data)
     
 // }
 
-int8_t fram_read_id(spibus *dev, uint8_t *out_buf, ssize_t buf_len)
+int8_t fram_read_id(spibus *dev, uint32_t *id)
 {
-    if (buf_len != 4)
+    uint8_t buf[5] = {0};
+    buf[0] = OPCODE_RDID;
+    if (spibus_xfer_full(dev, buf, buf, 5))
     {
-        bprintlf(RED_FG "ERROR: Buffer length must be 4 bytes!");
+        bprintlf(RED_FG "Failed to perform SPI bus transfer to obtain FRAM ID.");
         return -1;
     }
-
-    // Read ID
-    out_buf[0] = OPCODE_RDID;
-
-    if (spibus_xfer(dev, out_buf, buf_len) < 0)
-    {
-        bprintlf(RED_FG "Failed to perform SPI bus transfer to obtain device ID.");
-        return -1;
-    }
+    id = (uint32_t *) buf[1];
 
     return 0;
 }
