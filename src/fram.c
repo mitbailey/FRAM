@@ -51,7 +51,7 @@ int fujitsu_fram_init(fujitsu_fram *dev)
     return 0;
 }
 
-int fujitsu_fram_enable_write(fujitsu_fram *dev, bool en)
+int fujitsu_fram_write_enable(fujitsu_fram *dev, bool en)
 {
     uint8_t cmd = en ? FRAM_WREN : FRAM_WRDI;
     return spibus_xfer(dev, &cmd, 1);

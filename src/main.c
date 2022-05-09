@@ -53,7 +53,7 @@ int main()
     }
 
     uint32_t data = 0xdeadbeef;
-
+    fujitsu_fram_write_enable(dev, true);
     fujitsu_fram_write(dev, 0x7f, &data, sizeof(data));
 
     uint32_t idata = 0x0;
