@@ -20,14 +20,14 @@ int main()
     ssize_t buf_len = 4;
 
     // Initialization test.
-    if (fram_init(dev) < 0)
+    if (fujitsu_fram_init(dev) < 0)
     {
         dbprintlf(FATAL "Device failed to initialize!");
         return -1;
     }
 
     // Device identification test.
-    if (fram_read_id(dev, (uint32_t *) buf) < 0)
+    if (fujitsu_fram_read_id(dev, (uint32_t *) buf) < 0)
     {
         bprintlf(RED_FG "Failed to obtain device identification.");
     }
@@ -42,7 +42,7 @@ int main()
     }
 
     // Device read status test.
-    uint8_t dev_status = fram_read_status(dev);
+    uint8_t dev_status = fujitsu_fram_read_status(dev);
     if (dev_status == 0xFF)
     {
         bprintlf(RED_FG "Failed to obtain device status.");
@@ -51,6 +51,15 @@ int main()
     {
         bprintlf("Device status: 0x%08X", dev_status);
     }
+
+    uint32_t data = 0xdeadbeef;
+
+    fujitsu_fram_write(dev, 0x7f, &data, sizeof(data));
+
+    uint32_t idata = 0x0;
+    fujitsu_fram_read(dev, 0x7f, &idata, sizeof(idata));
+
+    bprintlf("Read: 0x%x", idata);
 
     spibus_destroy(dev);
 
