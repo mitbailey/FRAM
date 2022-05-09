@@ -1,0 +1,3 @@
+[submodule "spibus"]
+	path = spibus
+	url = git@github.com:sunipkm/spibus
