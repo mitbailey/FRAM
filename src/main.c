@@ -42,6 +42,7 @@ int main()
     }
 
     // Device read status test.
+    fujitsu_fram_write_enable(dev, true);
     uint8_t dev_status = fujitsu_fram_read_status(dev);
     if (dev_status == 0xFF)
     {
@@ -53,7 +54,6 @@ int main()
     }
 
     uint32_t data = 0xdeadbeef;
-    fujitsu_fram_write_enable(dev, true);
     fujitsu_fram_write(dev, 0x7f, &data, sizeof(data));
 
     uint32_t idata = 0x0;
