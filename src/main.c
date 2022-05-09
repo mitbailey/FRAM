@@ -40,7 +40,7 @@ int main()
     uint8_t dev_status = fram_read_status(dev);
     if (dev_status == 0xFF)
     {
-        dbprintlf(RED_FG "Failed to obtain device status.");
+        bprintlf(RED_FG "Failed to obtain device status.");
     }
     else
     {
