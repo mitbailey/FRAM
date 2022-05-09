@@ -15,12 +15,12 @@
 
 int main()
 {
-    spibus dev[1] = {0};
+    fujitsu_fram dev[1];
     uint8_t buf[4] = {0};
     ssize_t buf_len = 4;
 
     // Initialization test.
-    if (fujitsu_fram_init(dev) < 0)
+    if (fujitsu_fram_init(dev, 1000000) < 0)
     {
         dbprintlf(FATAL "Device failed to initialize!");
         return -1;
@@ -61,7 +61,7 @@ int main()
 
     bprintlf("Read: 0x%x", idata);
 
-    spibus_destroy(dev);
+    fujitsu_fram_destroy(dev);
 
     return 0;
 }

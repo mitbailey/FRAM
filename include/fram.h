@@ -13,14 +13,21 @@
 #include <stdbool.h>
 #include "spibus.h"
 
-typedef spibus fujitsu_fram;
+typedef struct
+{
+    spibus bus[1];
+    uint32_t id;
+}
+fujitsu_fram;
 /**
  * @brief Initializes the FRAM.
  * 
  * @param dev FRAM device.
  * @return int8_t 0 on success, negative on failure.
  */
-int fujitsu_fram_init(fujitsu_fram *dev);
+int fujitsu_fram_init(fujitsu_fram *dev, uint32_t speed);
+
+void fujitsu_fram_destroy(fujitsu_fram *dev);
 
 /**
  * @brief Enables writing to FRAM memory.
