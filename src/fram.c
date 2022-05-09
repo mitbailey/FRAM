@@ -27,9 +27,10 @@ int8_t fram_init(spibus *dev)
     dev->speed = 4000000;
     dev->sleeplen = 0;
 
-    if (spibus_init(dev) < 0)
+    int retval = spibus_init(dev);
+    if (retval < 0)
     {
-        dbprintlf(FATAL "Error initializing.");
+        dbprintlf(FATAL "Error initializing (%d).", retval);
         return -1;
     }
 
@@ -52,9 +53,10 @@ uint8_t fram_read_status(spibus *dev)
 {
     uint8_t buf[2] = {0};
     buf[0] = OPCODE_RDSR;
-    if (spibus_xfer_full(dev, buf, buf, 2) < 0)
+    int retval = spibus_xfer_full(dev, buf, buf, 2);
+    if (retval < 0)
     {
-        bprintlf(RED_FG "Failed to perform SPI bus transfer to obtain device status.");
+        bprintlf(RED_FG "Failed to perform SPI bus transfer to obtain device status (%d).", retval);
         return 0xFF;
     }
 
@@ -80,9 +82,10 @@ int8_t fram_read_id(spibus *dev, uint32_t *id)
 {
     uint8_t buf[5] = {0};
     buf[0] = OPCODE_RDID;
-    if (spibus_xfer_full(dev, buf, buf, 5))
+    int retval = spibus_xfer_full(dev, buf, buf, 5);
+    if (retval < 0)
     {
-        bprintlf(RED_FG "Failed to perform SPI bus transfer to obtain FRAM ID.");
+        bprintlf(RED_FG "Failed to perform SPI bus transfer to obtain FRAM ID (%d).", retval);
         return -1;
     }
     id = (uint32_t *) buf[1];
