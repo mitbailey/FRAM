@@ -29,7 +29,7 @@ int main()
     // Device identification test.
     if (fram_read_id(dev, (uint32_t *) buf) < 0)
     {
-        dbprintlf(RED_FG "Failed to obtain device identification.");
+        bprintlf(RED_FG "Failed to obtain device identification.");
     }
     else
     {
