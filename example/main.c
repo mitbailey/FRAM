@@ -53,7 +53,7 @@ int main()
     }
     else
     {
-        bprintlf("Device status: 0x%08X", dev_status);
+        bprintlf("Device status: 0x%02X", dev_status);
     }
 
     // Write data to address
