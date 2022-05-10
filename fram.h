@@ -55,7 +55,7 @@ int fujitsu_fram_write_enable(fujitsu_fram *dev, bool en);
 /**
  * @brief Read the FRAM's status.
  * 
- * @param dev FRAM device.
+ * @param dev fujitsu_fram device pointer.
  * @return uint8_t The FRAM's 8-bit status, or 0xFF on failure.
  */
 uint8_t fujitsu_fram_read_status(fujitsu_fram *dev);
@@ -72,7 +72,7 @@ uint8_t fujitsu_fram_read_status(fujitsu_fram *dev);
  * 1       | WEL      | Unwritable (set with WREN)
  * 0       | 0        | Unwritable (fixed)
  * 
- * @param dev FRAM device.
+ * @param dev fujitsu_fram device pointer.
  * @param data The new desired value of the status byte. 
  * @return int Zero on success, negative on failure.
  */
@@ -103,7 +103,7 @@ int fujitsu_fram_write(fujitsu_fram *dev, uint32_t address, uint8_t *buf, size_t
 /**
  * @brief Read the FRAM's ID.
  * 
- * @param dev spibus-type device. 
+ * @param dev fujitsu_fram device pointer.
  * @param id The output buffer to store the ID.
  * @return int8_t Zero on success, negative on failure.
  */
