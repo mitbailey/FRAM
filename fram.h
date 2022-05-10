@@ -74,7 +74,7 @@ uint8_t fujitsu_fram_read_status(fujitsu_fram *dev);
  * 
  * @param dev fujitsu_fram device pointer.
  * @param data The new desired value of the status byte. 
- * @return int Zero on success, negative on failure.
+ * @return int Positive on success, negative on failure.
  */
 int fujitsu_fram_write_status(fujitsu_fram *dev, uint8_t data);
 
@@ -105,6 +105,6 @@ int fujitsu_fram_write(fujitsu_fram *dev, uint32_t address, uint8_t *buf, size_t
  * 
  * @param dev fujitsu_fram device pointer.
  * @param id The output buffer to store the ID.
- * @return int8_t Zero on success, negative on failure.
+ * @return int8_t Positive on success, negative on failure.
  */
 int fujitsu_fram_read_id(fujitsu_fram *dev, uint32_t *id);
