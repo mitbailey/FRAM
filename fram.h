@@ -74,7 +74,7 @@ uint8_t fujitsu_fram_read_status(fujitsu_fram *dev);
  * 
  * @param dev FRAM device.
  * @param data The new desired value of the status byte. 
- * @return int8_t Zero on success, negative on failure.
+ * @return int Zero on success, negative on failure.
  */
 int fujitsu_fram_write_status(fujitsu_fram *dev, uint8_t data);
 
