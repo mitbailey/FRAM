@@ -21,7 +21,7 @@ The program is compiled and run automatically. In case of permission errors, man
 ### Basic Usage
 An instance of a Fujitsu FRAM device can be initialized:
 
-    c```
+    ```c
         fujitsu_fram dev; // Fujitsu FRAM device instance
         int ret = fujitsu_fram_init(&dev, 0, 0, -1, 1000000); // Initialize the instance at Bus 0, chip select 0, without GPIO chip select, at speed 1 MHz.
     ```
@@ -29,13 +29,13 @@ The init function returns negative on error.
 
 Writes can be enabled on the device using:
 
-    c```
+    ```c
         fujitsu_fram_write_enable(&dev, true);
     ```
 
 Bytes can be written and read to and from the device:
 
-    c```
+    ```c
         uint32_t data = 0xdeadbeef;
         fujitsu_fram_write(&dev, 0xa, (uint8_t *) &data, sizeof(data)); // write 4 bytes starting at address 0xa.
         fujitsu_fram_read(&dev, 0xa, (uint8_t *) &data, sizeof(data)); // read 4 bytes starting at address 0xa.
