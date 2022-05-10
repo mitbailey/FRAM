@@ -31,6 +31,7 @@ fujitsu_fram;
  * @param bus SPI bus number (X in /dev/spidevX.Y).
  * @param cs SPI chip select number (Y in /dev/spidevX.Y).
  * @param cs_gpio GPIO chip select pin (set to -1 to disable, set to gpiodev pin number and SPIBUS_CS_GPIO to 1.).
+ * @param speed SPI Bus speed (10 MHz max).
  * @return int Positive on success, negative on failure.
  */
 int fujitsu_fram_init(fujitsu_fram *dev, int bus, int cs, int cs_gpio, uint32_t speed);
