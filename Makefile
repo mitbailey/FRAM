@@ -1,8 +1,9 @@
 CC = gcc
-COBJS = src/main.o src/fram.o spibus/spibus.o
-EDCFLAGS = -I ./ -I ./include/ -I ./spibus/ -Wall -pthread $(CFLAGS)
+RM = rm -vf
+COBJS = example/main.o fram.o spibus/spibus.o
+EDCFLAGS = -I ./ -I ./example/ -I ./spibus/ -Wall -pthread $(CFLAGS)
 EDLDFLAGS := -lpthread -lm $(LDFLAGS)
-TARGET = fram.out
+TARGET = fram_test.out
 
 all: $(COBJS)
 	$(CC) $(EDCFLAGS) $(COBJS) -o $(TARGET) $(EDLDFLAGS)
@@ -11,17 +12,14 @@ all: $(COBJS)
 %.o: %.c
 	$(CC) $(EDCFLAGS) -o $@ -c $<
 
-.PHONY: clean
+.PHONY: clean doc spotless
+
+doc:
+	doxygen .doxyconfig
 
 clean:
 	$(RM) *.out
-	$(RM) *.o
-	$(RM) src/*.o
+	$(RM) $(COBJS)
 
-.PHONY: spotless
-
-spotless:
-	$(RM) *.out
-	$(RM) *.o
-	$(RM) src/*.o
-	$(RM) spibus/*.o
+spotless: clean
+	$(RM) -r doc
