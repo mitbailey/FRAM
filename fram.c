@@ -65,6 +65,8 @@ int fujitsu_fram_init(fujitsu_fram *dev, int bus, int cs, int cs_gpio, uint32_t 
         dev->len_ofst = 4;
     }
 
+    dev->id = id;
+
     return 1;
 }
 
@@ -207,4 +209,15 @@ int fujitsu_fram_read(fujitsu_fram *dev, uint32_t address, uint8_t *buf, size_t 
     memcpy(buf, ibuf + len_ofst, len);
     free(ibuf);
     return ret;
+}
+
+int fujitsu_fram_get_capacity(fujitsu_fram *dev)
+{
+    if (dev == NULL || dev->bus == NULL)
+    {
+        return -5;
+    }
+    int cap = (dev->id >> 16) & 0xff;
+    cap = (1 << cap) * 1024;
+    return cap;
 }

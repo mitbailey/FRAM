@@ -9,6 +9,13 @@
  * 
  */
 
+#ifndef _FUJITSU_FRAM_H_
+#define _FUJITSU_FRAM_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
+
 #include <unistd.h>
 #include <stdbool.h>
 #include "spibus.h"
@@ -21,6 +28,7 @@ typedef struct
 {
     spibus bus[1];
     int len_ofst;
+    uint32_t id;
 }
 fujitsu_fram;
 
@@ -108,3 +116,16 @@ int fujitsu_fram_write(fujitsu_fram *dev, uint32_t address, uint8_t *buf, size_t
  * @return int Positive on success, negative on failure.
  */
 int fujitsu_fram_read_id(fujitsu_fram *dev, uint32_t *id);
+
+/**
+ * @brief Read the capacity of the FRAM.
+ * 
+ * @param dev fujitsu_fram device pointer.
+ * @return int Capacity of the FRAM in bytes.
+ */
+int fujitsu_fram_get_capacity(fujitsu_fram *dev);
+
+#ifdef __cplusplus
+}
+#endif // __cplusplus
+#endif // _FUJITSU_FRAM_H_
